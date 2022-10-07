@@ -101,13 +101,13 @@ def pred_disease(string):
     # Predict disease
     prediction = mlp.predict_proba([sample_x])
     
-    k = 10
+    k = 5
     diseases = list(set(Y['label_dis']))
     diseases.sort()
     topk = prediction[0].argsort()[-k:][::-1]
     
     topk_dict = {}
-    # Show top 10 highly probable disease to the user.
+    # Show top 5 highly probable disease to the user.
     for idx,t in  enumerate(topk):
         match_sym=set()
         row = df_norm.loc[df_norm['label_dis'] == diseases[t]].values.tolist()
@@ -163,7 +163,7 @@ def pred_disease(string):
             texts.append('Sorry! We currently do not have a treatment available for this disease')
             
     final=[]
-    for i in range(10):
+    for i in range(5):
         final.append([diseases_final[i], probs[i], texts[i]])
     
     return final
